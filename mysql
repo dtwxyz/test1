@@ -1,0 +1,19 @@
+rm -rf $VAR_DIR/mysql
+mysqld -I --ssl
+mysql.server start # --skip-grant-tables
+mysql -u root -p
+alter user root@localhost identified by '********';
+mysqladmin -u root password
+create user test@localhost identified by '********';
+create database <db>;
+grant all privileges on <db>.* to test@localhost;
+flush privileges;
+mysql [-h <host> -P 3306 -D <db> --tls-version=<p list> --ssl*] -u <user> -p
+?
+? contents
+? <item>
+select user()\G
+mysql.server stop
+mysqladmin -u root shutdown
+# <user>:<pass>@tcp(<host>:3306)/<db>?tls=skip-verify
+# <user>:<pass>@/<db>?tls=skip-verify

@@ -1,0 +1,21 @@
+pg_ctl -D $VAR_DIR/postgres start
+pg_isready
+createdb [-h <host> -p 5432 -U <root>] test
+man CREATE_DATABASE
+psql [-h <host> -p 5432] test [<root>]
+\password
+create user <user>;
+\password <user>
+create database <db>;
+grant all on database <db> to <user>;
+\q
+psql [-h <host> -p 5432] <db> [<user>]
+\?
+\pset
+\set
+\c <db>
+create schema <schema>;
+\q
+dropdb <db>
+pg_ctl -D $VAR_DIR/postgres stop
+# postgresql://<user>:<pass>@<host>:5432/<db>?sslmode=disable

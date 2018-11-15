@@ -1,0 +1,106 @@
+alias bashrc='. ~/.bashrc'
+
+HISTFILE=~/.bash_history
+HISTSIZE=5000
+HISTFILESIZE=5000
+shopt -s histappend
+
+alias wget-book='wget -r -l 1000 -k -p -np'
+alias grep=zegrep
+alias less=zless\ -NiR
+alias ls=ls\ -FH
+alias popd='popd >/dev/null 2>&1'
+alias pushd='pushd >/dev/null 2>&1'
+alias split-path='tr : \\n'
+alias xargs=xargs\ -o
+
+export EDITOR=vim
+export PAGER=less
+alias vi=vim
+VIMRUNTIME=`vi -u - -e --cmd 'ec $VIMRUNTIME|q' 2>&1 >/dev/null | tr -d \\\r`
+PATH=$VIMRUNTIME/macros:$PATH
+
+PATH=~/lib/arcanist/bin:$PATH
+
+alias ps1-date='date "+%Y-%m-%d %H:%M:%S %Z"'
+
+docker-env() {
+  docker-machine start $1
+  eval `docker-machine env $1`
+}
+
+alias es5=elasticsearch@5.6\ -Epath.conf=$HOME/doc/esconfig
+
+alias godoc='godoc -play -http :6060'
+
+alias ps1-git='git branch --no-color 2>/dev/null | sed -e "/^[^*]/d" -e "s/* \(.*\)/ (\1)/"'
+
+# haskell stack tools target directory
+PATH=~/.local/bin:$PATH
+
+jenv-shell() {
+  jenv shell $*
+  export JAVA_HOME=`jenv prefix`
+}
+export JAVA9_HOME=~/.jenv/versions/10.0
+eval "`jenv init -`"
+#jenv shell 1.8
+jenv-shell 1.8
+
+MARK_FILE=~/.mark
+mark() {
+  echo -n `ps1-date` >>$MARK_FILE
+  [[ 0 != $# ]] && echo -n ": $*" >>$MARK_FILE
+  echo >>$MARK_FILE
+}
+
+export NVM_DIR=~/.nvm
+export RADONFILESENCODING=UTF-8
+[ -s $NVM_DIR/nvm.sh ] && . $NVM_DIR/nvm.sh
+[ -s $NVM_DIR/bash_completion ] && . $NVM_DIR/bash_completion
+
+. ~/.pants-complete
+pants() {(
+  cd $1; shift; ./pants --colors $*
+)}
+
+# pip bash completion start
+_pip_completion() {
+    COMPREPLY=( $( COMP_WORDS="${COMP_WORDS[*]}" \
+                   COMP_CWORD=$COMP_CWORD \
+                   PIP_AUTO_COMPLETE=1 $1 ) )
+}
+complete -o default -F _pip_completion pip
+# pip bash completion end
+
+# python -m cProfile -o ~/tmp/out.prof test.py
+# pip install snakeviz
+# curl --data 'time=10' -k http://host:port/cpu_profile > ~/tmp/out.prof
+# snakeviz ~/tmp/out.prof
+
+#export PSQLRC=~/.psqlrc
+
+export PYTHON_TOOLS=~/lib/python/Tools
+PATH=$PYTHON_TOOLS/scripts:$PATH
+alias ptags="find . -not -name . -name '.*' -prune -o -type f \( -name '*.py' -o -name '*.aurora' \) -print | ~/bin/ptags.py"
+export PYTHONSTARTUP=~/.pythonrc.py
+#eval "`pyenv init -`"
+#pyenv global 2.7.14
+export WORKON_HOME=~/.virtualenvs
+. `which virtualenvwrapper.sh`
+alias ps1-virtualenv='declare -F deactivate >/dev/null && echo " (`workon`)"'
+
+STYLE_RESET='\[\e[m\]'
+STYLE_FG_BOLD='\[\e[1m\]'
+STYLE_FG_DIM='\[\e[2m\]'
+STYLE_FG_ITALIC='\[\e[3m\]'
+STYLE_FG_UNDERSCORE='\[\e[4m\]'
+ps1() {
+  PS1=$STYLE_FG_DIM'`ps1-date``ps1-virtualenv``__docker_machine_ps1``__git_ps1` [`dirs`]\n$ '$STYLE_RESET
+  history -a
+  history -c
+  history -r
+}
+PROMPT_COMMAND=ps1
+
+PATH=~/bin:$PATH

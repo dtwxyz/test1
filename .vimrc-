@@ -1,0 +1,49 @@
+ab _au @author Wang, Chenzhong
+
+se acd
+se aw
+se et
+se hls
+se is
+se lbr
+se lcs=tab:>-,
+se lcs+=eol:$,
+se list
+se ls=2
+se nows
+se nu
+se sm
+se stl=
+se stl+=(%n)
+se stl+=\ (%t)
+se stl+=\ (%{expand('%:p:h')})
+se stl+=%=(
+se stl+=%M
+se stl+=%Y
+se stl+=%R
+se stl+=%H
+se stl+=%W
+se stl+=%q
+se stl+=%k
+se stl+=%k
+se stl+=%a
+se stl+=)
+se stl+=\ (%02B)
+se stl+=\ (%4l/%4L,\ %3c%3V)
+se sw=4
+se ts=4
+se tw=0
+se wmnu
+se wrap
+
+hi LineNr ctermfg=DarkGray
+hi NonText ctermfg=DarkGray
+hi Search ctermfg=White ctermbg=DarkGray
+hi SpecialKey ctermfg=DarkGray
+
+sy on
+filet on
+aug me
+  au!
+  au BufRead,BufNewFile .pdbrc,*.py,*.aurora so ~/.vimrc-py
+aug end

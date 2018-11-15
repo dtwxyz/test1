@@ -1,0 +1,9 @@
+*~
+*.swp
+*.swo
+*.swn
+*.swm
+Session.vim
+.ptags
+
+*.html

@@ -1,0 +1,9 @@
+[core]
+	excludesfile = ~/.gitignore
+[color]
+	ui = always
+[color "diff"]
+	old = yellow
+[color "status"]
+	untracked = yellow
+	changed = yellow

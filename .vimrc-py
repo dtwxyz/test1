@@ -1,0 +1,11 @@
+se ft=python
+se tags=.ptags;
+let pymode_lint_options_pep8=120
+so ~/.vimrc-
+
+py <<!
+import os
+with open(os.path.expanduser(os.environ['PYTHONSTARTUP'])) as pyrc:
+    exec(pyrc.read())
+    del pyrc
+!

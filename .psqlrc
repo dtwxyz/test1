@@ -1,0 +1,8 @@
+\set HISTCONTROL ignoreboth
+\set HISTFILE ~/.psql_history-:DBNAME
+\set PROMPT1 '%[\033[2m%]%`date "+%Y-%m-%d %H:%M:%S %Z"` (%m:%>) (%/)%012%R%#%[\033[m%] '
+\set PROMPT2 '%[\033[2m%]%R%#%[\033[m%] '
+\set ECHO_HIDDEN off
+\pset pager off
+\timing
+\x auto

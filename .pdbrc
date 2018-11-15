@@ -1,0 +1,2 @@
+import os
+with open(os.path.expanduser('~/.pythonrc.py')) as pyrc: exec(pyrc.read())
